@@ -246,12 +246,12 @@ _dbt_fzf_get_models_for_selection() {
 # These functions return selection lists for fzf.
 # The first line of these methods is used as the header in fzf.
 _dbt_fzf_show_models() {
-    echo "\033[0;31m[models - ,]\033[0m   [selectors - .]"
+    echo "\033[0;31m[models - ,]\033[0m   [models+ - <]   [selectors - .]"
     _dbt_fzf_get_model_list
 }
 
 _dbt_fzf_show_models_plus() {
-    echo "\033[0;31m[models+ - <]\033[0m   [selectors - .]"
+    echo "[models - ,]   \033[0;31m[models+ - <]\033[0m   [selectors - .]"
     local model_list=$(_dbt_fzf_get_model_list)
     
     (
@@ -270,7 +270,7 @@ _dbt_fzf_show_models_plus() {
 }
 
 _dbt_fzf_show_selectors() {
-    echo "[models - ,]   \033[0;31m[selectors - .]\033[0m"
+    echo "[models - ,]   [models+ - <]   \033[0;31m[selectors - .]\033[0m"
     (
         _dbt_fzf_get_tag_list
         _dbt_fzf_get_package_paths
