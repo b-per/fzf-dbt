@@ -235,7 +235,7 @@ _dbt_fzf_get_models_for_selection() {
     if [ -z "$selection_models" ]
     then
         selection_models=$(
-            dbt ls -m "$fzf_selection" \
+            dbt ls -q -s "$fzf_selection" --resource-types model \
             | awk '{ n=split($1, part, "."); print part[n] }'
         )
     fi
