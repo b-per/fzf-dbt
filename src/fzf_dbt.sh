@@ -259,13 +259,6 @@ _dbt_fzf_show_models_plus() {
         echo $model_list | awk '{print "+" $0;}'
         echo $model_list | awk '{print $0 "+";}'
         echo $model_list | awk '{print "+" $0 "+";}'
-        echo $model_list | awk '{print "@" $0;}'
-
-        for i in {1..3}
-        do
-            echo $model_list | awk -v i="$i" '{print i "+" $0;}'
-            echo $model_list | awk -v i="$i" '{print $0 "+" i;}'
-        done
     ) | sort
 }
 
