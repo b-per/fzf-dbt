@@ -10,7 +10,7 @@ JQ_DBT_MODEL_FILTER='
     map({
         model: .value.name,
         resource_type: .value.resource_type,
-        file_path: (.value.root_path + "/" + .value.original_file_path),
+        file_path: .value.original_file_path,
         package_path: (.value.fqn[:-1] | join(".") ), tags: .value.tags
     }) |
     .[] |
