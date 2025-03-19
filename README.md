@@ -6,21 +6,22 @@ Instead of having to remember your model names, you can simply type `dbt run -m 
 
 It works by integrating the command line fuzzy finder [fzf](https://github.com/junegunn/fzf) with [dbt](https://github.com/dbt-labs/dbt-core).
 
-1. [Demo](#demo)
-    1. [Interactive search and model selection](#interactive-search-and-model-selection)
-    2. [Model code preview](#model-code-preview)
-    3. [Tag and package selection](#tag-and-package-selection)
-    4. [Selection modifiers `+` and `@` are also supported](#selection-modifiers--and--are-also-supported)
-2. [Installation](#installation)
-    1. [Install fzf](#install-fzf)
-    2. [Install other dependencies](#install-other-dependencies)
-    3. [Install fzf-dbt](#install-fzf-dbt)
-3. [Usage](#usage)
-4. [Configuration](#configuration)
-    1. [Preview command](#preview-command)
-    2. [Window Height](#window-height)
-5. [Limitations](#limitations)
-6. [Related Projects](#related-projects)
+- [fzf-dbt - An interactive search for dbt models](#fzf-dbt---an-interactive-search-for-dbt-models)
+  - [Demo](#demo)
+    - [Interactive search and model selection](#interactive-search-and-model-selection)
+    - [Model code preview](#model-code-preview)
+    - [Tag and package selection](#tag-and-package-selection)
+    - [Selection modifier `+` upstream and downstream is also supported](#selection-modifier--upstream-and-downstream-is-also-supported)
+  - [Installation](#installation)
+    - [Install fzf](#install-fzf)
+    - [Install other dependencies](#install-other-dependencies)
+    - [Install fzf-dbt](#install-fzf-dbt)
+  - [Usage](#usage)
+  - [Configuration](#configuration)
+    - [Preview command](#preview-command)
+    - [Window Height](#window-height)
+  - [Limitations](#limitations)
+  - [Related Projects](#related-projects)
 
 ## Demo
 
@@ -48,9 +49,9 @@ While in the tag and package selection view, the preview will show you all the m
 
 To switch back to the model view, press `,`.
 
-### Selection modifiers `+` and `@` are also supported
+### Selection modifier `+` upstream and downstream is also supported
 
-Simply press `<` (`shift and ,`) to switch to the advanced model selection view that contains all models including modifiers, such as `2+stg_orders`.
+Simply press `<` (`shift and ,`) to switch to the advanced model selection view that contains all models including modifiers, such as `+stg_orders`.
 
 You can switch back to the other views by pressing `,` or `.`.
 
@@ -114,7 +115,7 @@ if [[ ! -f $FZF_DBT_PATH ]]; then
     FZF_DBT_DIR=$(dirname $FZF_DBT_PATH)
     print -P "%F{green}Installing fzf-dbt into $FZF_DBT_DIR%f"
     mkdir -p $FZF_DBT_DIR
-    command curl -L https://raw.githubusercontent.com/Infused-Insight/fzf-dbt/main/src/fzf_dbt.sh > $FZF_DBT_PATH && \
+    command curl -L https://raw.githubusercontent.com/b-per/fzf-dbt/main/src/fzf_dbt.sh > $FZF_DBT_PATH && \
         print -P "%F{green}Installation successful.%f" || \
         print -P "%F{red}The download has failed.%f"
 fi
@@ -180,7 +181,7 @@ export FZF_DBT_HEIGHT=40%
 
 ## Limitations
 
-In order to be fast, fzf-dbt parses dbt's `manifest.json` file. But this file is only updated when you run the `compile`, `run`, `test` or another dbt command that compiles the project.
+In order to be fast, fzf-dbt parses dbt's `manifest.json` file. But this file is only updated when you run the `ls`, `compile`, `run`, `build`, `test` or another dbt command that compiles the project.
 
 Therefore if you add a models, but don't run any of these commands, fzf-dbt won't be able to find those models.
 
